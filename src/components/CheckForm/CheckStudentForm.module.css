@@ -1,0 +1,84 @@
+/* CheckStudentForm.module.css */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f6f9;
+  }
+  
+  .formWrapper {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #555;
+    display: block;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  
+  input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+  }
+  
+  input:focus {
+    border-color: #4CAF50;
+    background-color: #fff;
+    outline: none;
+  }
+  
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  button:active {
+    background-color: #388e3c;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #777;
+  }
+  
