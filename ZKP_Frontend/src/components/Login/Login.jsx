@@ -5,10 +5,11 @@ import styles from "./SignUp.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { notify } from "./toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -16,19 +17,25 @@ const Login = () => {
 
   const [touched, setTouched] = useState({});
 
-  const chaeckData = (obj) => {
-    const { email, password } = obj;
-    const urlApi = `https://lightem.senatorhost.com/login-react/index.php?email=${email.toLowerCase()}&password=${password}`;
-    const api = axios
-      .get(urlApi)
-      .then((response) => response.data)
-      .then((data) => (data.ok ? notify("You login to your account successfully", "success") : notify("Your password or your email is wrong", "error")));
-    toast.promise(api, {
-      pending: "Loading your data...",
-      success: false,
-      error: "Something went wrong!",
-    });
-  };
+  const urlApi = "http://localhost:5000/login"; // Thay đổi thành API của bạn
+
+  const chaeckData = async () => {
+    try {
+      const response = await axios.post(urlApi, {
+        email: data.email,
+        password: data.password,
+      });
+  
+      if (response.data.ok) {
+        notify("You login to your account successfully", "success");
+        navigate("/home");
+      } else {
+        notify(response.data.message, "error");
+      }
+    } catch (error) {
+      notify("Something went wrong!", "error");
+    }
+  };  
 
   const changeHandler = (event) => {
     if (event.target.name === "IsAccepted") {
@@ -44,7 +51,7 @@ const Login = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    chaeckData(data);
+    chaeckData();
   };
 
   return (

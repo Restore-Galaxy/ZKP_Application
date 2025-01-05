@@ -12,11 +12,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { notify } from "./toast";
 //
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 // Axios
 import axios from "axios";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -48,18 +49,26 @@ const SignUp = () => {
     event.preventDefault();
     if (!Object.keys(errors).length) {
       // Pushing data to database usuing PHP script
-      const urlApi = `https://lightem.senatorhost.com/login-react/index.php?email=${data.email.toLowerCase()}&password=${data.password}&register=true`;
+      const urlApi = `http://localhost:5000/signup`;
       const pushData = async () => {
-        const responseA = axios.get(urlApi);
-        const response = await toast.promise(responseA, {
-          pending: "Check your data",
-          success: "Checked!",
-          error: "Something went wrong!",
-        });
-        if (response.data.ok) {
-          notify("You signed Up successfully", "success");
-        } else {
-          notify("You have already registered, log in to your account", "warning");
+        try {
+          const response = await axios.post(urlApi, {
+            username: data.name,
+            email: data.email,
+            password: data.password,
+          });
+      
+          if (response.data.ok) {
+            notify("You signed Up successfully", "success");
+            setTimeout(() => {
+              navigate("/login");
+            }, 1000);
+          } else {
+            notify(response.data.message, "warning");
+          }
+        } catch (error) {
+          console.log("Error:", error);
+          notify("Something went wrong!", "error");
         }
       };
       pushData();
