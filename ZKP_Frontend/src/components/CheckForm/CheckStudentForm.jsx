@@ -21,18 +21,14 @@ const CheckStudentForm = () => {
   return (
     <div className={styles.container}>
       <div className={styles.formWrapper}>
-        <h2>Bạn có phải sinh viên Bách Khoa Hà Nội không?</h2>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="studentId">Nhập MSSV của bạn:</label>
-          <input
-            type="text"
-            id="studentId"
-            value={studentId}
-            onChange={(e) => setStudentId(e.target.value)}
-            required
-          />
-          <button type="submit">Submit</button>
-        </form>
+        <h2>Rất tiếc, bạn không thể truy cập tính năng này</h2>
+        <br/>
+        <h2>Bạn là sinh viên Bách Khoa Hà Nội? Đăng nhập lại tại đây</h2>
+        <button className={styles.button} onClick={() => {
+          navigate("/login");
+        }}>
+          Đăng nhập
+        </button>
       </div>
     </div>
   );

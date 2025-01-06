@@ -28,11 +28,22 @@ const Login = () => {
   
       if (response.data.ok) {
         notify("You login to your account successfully", "success");
-        navigate("/home");
+        const verifyUrl = "http://localhost:5000/verify";
+        const verifyResponse = await axios.post(verifyUrl, {
+          email: data.email,
+        });
+        
+        localStorage.setItem("token", verifyResponse.data.ok);
+        console.log(verifyResponse.data.ok);
+
+        setTimeout(() => {
+          navigate("/home");
+        }, 1000);
       } else {
         notify(response.data.message, "error");
       }
     } catch (error) {
+      console.error(error);
       notify("Something went wrong!", "error");
     }
   };  
